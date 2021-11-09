@@ -1,0 +1,52 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAFv2 Receiver</title>
+  <link rel="stylesheet" href="receiver.css" />
+  
+
+
+</head>
+
+<body>
+
+  <video id='vid'></video>
+  <div class="infoHolder visible" id="infoHolder">
+  		<div class="backFade"></div>
+  		<div class="infoHolderText">
+
+  	 <div class="header" id="title"></div>
+  	 <div class="subtitle" id="subtitle"></div>
+  	 <div class="subtitle" id="studio"></div>
+
+  	 <div class="myProgressHolder">
+	   <div id="myProgress" >
+	  <div id="myBar" id="myBar"></div>
+	   
+	</div>
+	 <div class="myProgressHolder" id="myProgressHolder">
+	 
+	   
+	</div>
+	 <div class="timeStart"  id="timeStart">0</div>
+	<div class="timeEnd" id="timeEnd">0</div>
+	
+	</div>
+	  	
+  	 </div>
+  </div>
+  
+  <script type="text/javascript"
+      src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
+  </script>
+  <script src="https://www.gstatic.com/eureka/cast_codelabs/debug_layer/caf_receiver_logger.js"></script>
+  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/mediaplayer/1.0.0/media_player.js"></script>
+  <!-- Web Receiver SDK -->
+  <script type="text/javascript" src="receiver.js"></script>
+
+
+
+</body>
+</html>

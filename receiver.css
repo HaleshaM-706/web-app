@@ -1,0 +1,110 @@
+body {
+  background-image: url('background.png');
+  background-size: contain;
+}
+
+video {
+  height: 100%;
+  width: 100%;
+ position: absolute;
+  top:0;
+  left:0;
+  z-index: 0;
+}
+
+div.infoHolder {
+   height: 100%;
+  width: 100%;
+ position: absolute;
+  top:0;
+  left:0;
+  z-index: 0;
+  display: none;
+}
+
+div.backFade {
+   height: 100%;
+  width: 100%;
+ position: absolute;
+  top:0;
+  left:0;
+  z-index: 0;
+  background-color: black;
+  opacity: .6;
+}
+
+div.infoHolderText {
+   
+  width: 80%;
+ position: absolute;
+  bottom:5%;
+  left:0;
+  z-index: 2;
+  margin-left: 10%;
+}
+
+div.infoHolderSpace {
+   margin-left:10%;
+  width: 80%;
+
+}
+
+div.header {
+  font-size: 30px;
+  width:100%;
+  color:white;
+}
+
+div.subtitle {
+  font-size: 30px;
+  width:100%;
+  color:white;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 500ms linear;
+}
+
+.hidden {
+ visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s linear;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: grey;
+}
+
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color: green;
+}
+
+
+div.timeStart {
+  font-size: 30px;
+      font-size: 30px;
+    /* width: 100%; */
+    color: white;
+    display: inline-block;
+    float: left;
+}
+
+
+div.timeEnd {
+
+      font-size: 30px;
+    /* width: 100%; */
+    color: white;
+    display: inline-block;
+    float: right;
+}
+
+div.myProgressHolder {
+	
+   width: 100%;
+}
