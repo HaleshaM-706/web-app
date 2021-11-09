@@ -162,6 +162,10 @@ mediaManager.onLoad = function (event) {
 
     setTimeout(function(){window.hideMediaInfo()}, 3000);
     var url = event.data['media']['contentId'];
+    if(!url){
+      url = event.data['media']['mediaUrl'];
+    }
+   
 
     // Create the Host - much of your interaction with the library uses the Host and
     // methods you provide to it.
