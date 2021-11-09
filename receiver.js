@@ -158,10 +158,10 @@ mediaManager.onLoad = function (event) {
   setTextOnFrame("subtitle",event.data['media']['metadata']['subtitle'])
   setTextOnFrame("studio",event.data['media']['metadata']['studio'])
 
-  if (event.data['media'] && event.data['media']['contentId']) {
+  if (event.data['media'] && event.data['media']['mediaUrl']) {
 
     setTimeout(function(){window.hideMediaInfo()}, 3000);
-    var url = event.data['media']['contentId'];
+    var url = event.data['media']['mediaUrl'];
 
     // Create the Host - much of your interaction with the library uses the Host and
     // methods you provide to it.
