@@ -7,7 +7,7 @@
 
 window.hideMediaInfo = function()
 {
-  document.getElementById("infoHolder").classList.add("hidden");
+  // document.getElementById("infoHolder").classList.add("hidden");
 }
 
 window.showMediaInfo = function()
@@ -154,7 +154,7 @@ mediaManager.onLoad = function (event) {
     window.player = null;
   }
 
-  setTextOnFrame("title",event.data['media']['metadata']['title'])
+  setTextOnFrame("title",event.data)
   setTextOnFrame("subtitle",event.data['media']['metadata']['subtitle'])
   setTextOnFrame("studio",event.data['media']['metadata']['studio'])
 
