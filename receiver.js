@@ -136,6 +136,7 @@ setTextOnFrame = function (name, text)
 
 mediaManager.onLoad = function (event) {
   eventSet = event;
+  alert(event)
   //castContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
 
  // window.mediaManager.addEventListener(cast.framework.events.category.PAUSE, mediaManagerPaused);
