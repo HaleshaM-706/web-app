@@ -12,7 +12,7 @@ window.hideMediaInfo = function()
 
 window.showMediaInfo = function()
 {
-  document.getElementById("infoHolder").classList.remove("hidden");
+  // document.getElementById("infoHolder").classList.remove("hidden");
   document.getElementById("infoHolder").style.display = "block";
 }
 
@@ -154,7 +154,7 @@ mediaManager.onLoad = function (event) {
     window.player = null;
   }
 
-  setTextOnFrame("title",event.data)
+  setTextOnFrame("title",event.data['media'])
   setTextOnFrame("subtitle",event.data['media']['metadata']['subtitle'])
   setTextOnFrame("studio",event.data['media']['metadata']['studio'])
 
