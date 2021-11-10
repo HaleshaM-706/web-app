@@ -4,11 +4,11 @@
  * (i)the terms and conditions of the agreement you accepted by clicking that you agree or
  * (ii) such other agreement entered into between you and Nagravision S.A., OpenTV, Inc. or their affiliates.
  */
-// var test={
-//   "name":"halesha",
-//   "id":1
-// }
-// document.getElementById("data").innerText=JSON.stringify(test)
+var test={
+  "name":"halesha",
+  "id":1
+}
+document.getElementById("data").innerText=JSON.stringify(test)
 
 window.hideMediaInfo = function()
 {
