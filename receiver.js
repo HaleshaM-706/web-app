@@ -12,12 +12,12 @@ document.getElementById("data").innerText=JSON.stringify(test)
 
 window.hideMediaInfo = function()
 {
-  // document.getElementById("infoHolder").classList.add("hidden");
+  document.getElementById("infoHolder").classList.add("hidden");
 }
 
 window.showMediaInfo = function()
 {
-  // document.getElementById("infoHolder").classList.remove("hidden");
+  document.getElementById("infoHolder").classList.remove("hidden");
   document.getElementById("infoHolder").style.display = "block";
 }
 
@@ -33,7 +33,6 @@ if (window.location.href.indexOf('Debug=true') != -1) {
 var isLive = false;
 var eventSet;
 var mediaElement = document.getElementById('vid');
-
 // Create the media manager. This will handle all media messages by default.
 window.mediaManager = new cast.receiver.MediaManager(mediaElement);
 
@@ -160,7 +159,7 @@ mediaManager.onLoad = function (event) {
     window.player = null;
   }
 
-  setTextOnFrame("title",event.data['media'])
+  setTextOnFrame("title",event.data['media']['metadata']['title'])
   setTextOnFrame("subtitle",event.data['media']['metadata']['subtitle'])
   setTextOnFrame("studio",event.data['media']['metadata']['studio'])
 
@@ -187,7 +186,10 @@ mediaManager.onLoad = function (event) {
 
     var autoplay = event.data['autoplay'] || true;
     var protocol = null;
-    mediaElement.autoplay = autoplay;  // Make sure autoplay get's set
+    // mediaElement.autoplay = autoplay;  // Make sure autoplay get's set
+    if(autoplay){
+      mediaElement.play()
+    }
     if (url.lastIndexOf('.m3u8') >= 0) {
     // HTTP Live Streaming
       protocol = cast.player.api.CreateHlsStreamingProtocol(host);
