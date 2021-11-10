@@ -184,25 +184,23 @@ mediaManager.onLoad = function (event) {
     /*var studio = event.data['media']['studio'] || "";
     var streamDuration = event.data['media']['streamDuration'] || "";
     var playPosition = event.data['media']['playPosition'] || "";*/
-    var source = document.createElement('source');
+  //   var source = document.createElement('source');
 
-    source.setAttribute('src', url);
-    source.setAttribute('type', 'video/mp4');
-    setTimeout(()=>{
-   mediaElement.appendChild(source);
-    mediaElement.autoplay=true
-    console.log({
-      src: source.getAttribute('src'),
-      type: source.getAttribute('type'),
-    });
-    },3000)
+  //   source.setAttribute('src', url);
+  //   source.setAttribute('type', 'video/mp4');
+  //   setTimeout(()=>{
+  //  mediaElement.appendChild(source);
+  //   mediaElement.autoplay=true
+  //   console.log({
+  //     src: source.getAttribute('src'),
+  //     type: source.getAttribute('type'),
+  //   });
+  //   },3000)
 
     var autoplay = event.data['autoplay'] || true;
     var protocol = null;
-    // mediaElement.autoplay = autoplay;  // Make sure autoplay get's set
-    if(autoplay){
-      mediaElement.play()
-    }
+    mediaElement.autoplay = autoplay; // Make sure autoplay get's set
+ 
     if (url.lastIndexOf('.m3u8') >= 0) {
     // HTTP Live Streaming
       protocol = cast.player.api.CreateHlsStreamingProtocol(host);
