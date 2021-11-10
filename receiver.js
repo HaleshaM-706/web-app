@@ -188,14 +188,14 @@ mediaManager.onLoad = function (event) {
 
     source.setAttribute('src', url);
     source.setAttribute('type', 'video/mp4');
-    
-    mediaElement.appendChild(source);
-    mediaElement.load();
-    mediaElement.play();
+    setTimeout(()=>{
+   mediaElement.appendChild(source);
+    mediaElement.autoplay=true
     console.log({
       src: source.getAttribute('src'),
       type: source.getAttribute('type'),
     });
+    },3000)
 
     var autoplay = event.data['autoplay'] || true;
     var protocol = null;
