@@ -4,7 +4,11 @@
  * (i)the terms and conditions of the agreement you accepted by clicking that you agree or
  * (ii) such other agreement entered into between you and Nagravision S.A., OpenTV, Inc. or their affiliates.
  */
-document.getElementById("data").innerText="jk sdfdsffds"
+var test={
+  "name":"halesha",
+  "id":1
+}
+document.getElementById("data").innerText=JSON.stringify(test)
 
 window.hideMediaInfo = function()
 {
@@ -137,7 +141,7 @@ setTextOnFrame = function (name, text)
 
 mediaManager.onLoad = function (event) {
   eventSet = event;
-  document.getElementById("data").innerText=event
+  document.getElementById("data").innerText=JSON.stringify(event);
   //castContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
 
  // window.mediaManager.addEventListener(cast.framework.events.category.PAUSE, mediaManagerPaused);
