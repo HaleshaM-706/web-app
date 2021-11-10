@@ -187,7 +187,7 @@ mediaManager.onLoad = function (event) {
     var source = document.createElement('source');
 
     source.setAttribute('src', url);
-    source.setAttribute('type', event.data['media']['contentType']);
+    source.setAttribute('type', 'video/mp4');
     
     mediaElement.appendChild(source);
     mediaElement.load();
@@ -199,11 +199,10 @@ mediaManager.onLoad = function (event) {
 
     var autoplay = event.data['autoplay'] || true;
     var protocol = null;
-    // mediaElement.autoplay = autoplay;
-      // Make sure autoplay get's set
-    // if(autoplay){
-    //   mediaElement.play()
-    // }
+    // mediaElement.autoplay = autoplay;  // Make sure autoplay get's set
+    if(autoplay){
+      mediaElement.play()
+    }
     if (url.lastIndexOf('.m3u8') >= 0) {
     // HTTP Live Streaming
       protocol = cast.player.api.CreateHlsStreamingProtocol(host);
