@@ -227,7 +227,7 @@ mediaManager.onLoad = function (event) {
 
     // Extract custom data
     // Customise this to match the mapping from your sender app
-    if (event.data['media']['customData']) {
+    if (event.data['media']['customData']&&event.data['media']['customData']['token']) {
       token = event.data['media']['customData']['token'];
       licenceUri = event.data['media']['customData']['widevineLicenceUri'];
 
@@ -285,7 +285,7 @@ mediaManager.onLoad = function (event) {
     console.log("we have protocol " + ext);
     if (protocol !== null) {
       console.log("Starting Media Player Library");
-      logger1.innerText="Starting Media Player Library "+ JSON.stringify(cast);
+      logger1.innerText="Starting Media Player Library "+ JSON.stringify(cast.player);
 
       window.player = new cast.player.api.Player(host);
       window.player.load(protocol, initStart);
