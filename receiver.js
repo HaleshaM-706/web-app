@@ -9,6 +9,7 @@ var test={
   "id":1
 }
 document.getElementById("data").innerText=JSON.stringify(test)
+var logger=document.getElementById('testing');
 
 window.hideMediaInfo = function()
 {
@@ -142,6 +143,7 @@ setTextOnFrame = function (name, text)
 
 mediaManager.onLoad = function (event) {
   eventSet = event;
+  logger.innerText="in onLoad";
   document.getElementById("data").innerText=JSON.stringify(event);
   //castContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
 
@@ -180,6 +182,7 @@ mediaManager.onLoad = function (event) {
       {'mediaElement':mediaElement, 'url':url});
     var ext = url.substring(url.lastIndexOf('.'), url.length);
     var initStart = event.data['media']['currentTime'] || 0;
+    logger.innerText="in initStart";
 
     /*var studio = event.data['media']['studio'] || "";
     var streamDuration = event.data['media']['streamDuration'] || "";
@@ -219,6 +222,8 @@ mediaManager.onLoad = function (event) {
      {
        isLive = false;
      }
+    logger.innerText=protocol;
+
     // Extract custom data
     // Customise this to match the mapping from your sender app
     // if (event.data['media']['customData']) {
@@ -233,6 +238,8 @@ mediaManager.onLoad = function (event) {
 
     // Override error handing
     host.onError = function(errorCode) {
+      logger.innerText="Error errorCode"+errorCode;
+
       console.log("Fatal Error - " + errorCode);
       if (window.player) {
         window.player.unload();
@@ -277,6 +284,8 @@ mediaManager.onLoad = function (event) {
     // console.log("we have protocol " + ext);
     if (protocol !== null) {
       console.log("Starting Media Player Library");
+      logger.innerText="Starting Media Player Library"+cast;
+
       window.player = new cast.player.api.Player(host);
       window.player.load(protocol, initStart);
     }
