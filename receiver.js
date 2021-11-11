@@ -289,7 +289,6 @@ mediaManager.onLoad = function (event) {
 
       window.player = new cast.player.api.Player(host);
       window.player.load(protocol, initStart);
-      logger.innerText="Starting Media Player Library "+ JSON.stringify(protocol);
 
     }
     else {
