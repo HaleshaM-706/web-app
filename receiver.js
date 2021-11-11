@@ -285,10 +285,12 @@ mediaManager.onLoad = function (event) {
     console.log("we have protocol " + ext);
     if (protocol !== null) {
       console.log("Starting Media Player Library");
-      logger1.innerText="Starting Media Player Library "+ protocol;
+      logger1.innerText="Starting Media Player Library "+ JSON.stringify(host);
 
       window.player = new cast.player.api.Player(host);
       window.player.load(protocol, initStart);
+      logger.innerText="Starting Media Player Library "+ JSON.stringify(protocol);
+
     }
     else {
       window.defaultOnLoad(event);    // do the default process
