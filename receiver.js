@@ -242,7 +242,7 @@ mediaManager.onLoad = function (event) {
     host.onError = function(errorCode) {
       logger.innerText="Error errorCode"+errorCode;
 
-      console.log("Fatal Error - " + errorCode);
+      console.log("Fatal Error - " + JSON.stringify(errorCode));
       if (window.player) {
         window.player.unload();
         window.player = null;
