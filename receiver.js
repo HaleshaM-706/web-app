@@ -224,7 +224,7 @@ mediaManager.onLoad = function (event) {
      {
        isLive = false;
      }
-    logger.innerText=protocol;
+    logger.innerText=JSON.stringify(protocol) ;
 
     // Extract custom data
     // Customise this to match the mapping from your sender app
@@ -240,7 +240,7 @@ mediaManager.onLoad = function (event) {
 
     // Override error handing
     host.onError = function(errorCode) {
-      logger.innerText="Error errorCode"+errorCode;
+      logger.innerText="Error errorCode "+JSON.stringify(errorCode);
 
       console.log("Fatal Error - " + JSON.stringify(errorCode));
       if (window.player) {
