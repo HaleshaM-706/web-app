@@ -10,6 +10,8 @@ var test={
 }
 document.getElementById("data").innerText=JSON.stringify(test)
 var logger=document.getElementById('testing');
+var logger1=document.getElementById('testing1');
+
 
 window.hideMediaInfo = function()
 {
@@ -284,7 +286,7 @@ mediaManager.onLoad = function (event) {
     // console.log("we have protocol " + ext);
     if (protocol !== null) {
       console.log("Starting Media Player Library");
-      logger.innerText="Starting Media Player Library"+cast;
+      logger1.innerText="Starting Media Player Library "+ JSON.stringify(cast);
 
       window.player = new cast.player.api.Player(host);
       window.player.load(protocol, initStart);
