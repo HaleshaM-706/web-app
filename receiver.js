@@ -70,7 +70,7 @@ setTextOnFrame = function (name, text)
 //event.data['media']
 //setTextOnFrame("title",eventSet.data['media']['customData']['period'])
  var currentTime = Math.round(Date.now()) 
-   if(eventSet.data['media']['customData']['period'] != null && isLive)
+   if(eventSet.data['media']['customData'] && eventSet.data['media']['customData']['period'] && isLive)
   {
     var endTime = parseInt(eventSet.data['media']['customData']['period']['end']);
 
@@ -285,7 +285,7 @@ mediaManager.onLoad = function (event) {
     console.log("we have protocol " + ext);
     if (protocol !== null) {
       console.log("Starting Media Player Library");
-      logger1.innerText="Starting Media Player Library "+ JSON.stringify(host);
+      logger1.innerText="Starting Media Player Library "
 
       window.player = new cast.player.api.Player(host);
       window.player.load(protocol, initStart);
