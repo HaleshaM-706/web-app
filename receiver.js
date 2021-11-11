@@ -228,15 +228,15 @@ mediaManager.onLoad = function (event) {
 
     // Extract custom data
     // Customise this to match the mapping from your sender app
-    // if (event.data['media']['customData']) {
-    //   token = event.data['media']['customData']['token'];
-    //   licenceUri = event.data['media']['customData']['widevineLicenceUri'];
+    if (event.data['media']['customData']) {
+      token = event.data['media']['customData']['token'];
+      licenceUri = event.data['media']['customData']['widevineLicenceUri'];
 
-    //   if (event.data['media']['customData']['ssmUri']) {
-    //     ssmClient = new SsmClient(event.data['media']['customData']['ssmUri'], token);
-    //     ssmClient.setup();
-    //   }
-    // }
+      if (event.data['media']['customData']['ssmUri']) {
+        ssmClient = new SsmClient(event.data['media']['customData']['ssmUri'], token);
+        ssmClient.setup();
+      }
+    }
 
     // Override error handing
     host.onError = function(errorCode) {
@@ -250,40 +250,40 @@ mediaManager.onLoad = function (event) {
     };
 
     // Override license request
-    // host.updateLicenseRequestInfo = function(reqInfo) {
-    //   console.log("License update requested")
-    //   if (licenceUri && token) {
-    //     reqInfo.url = licenceUri;
+    host.updateLicenseRequestInfo = function(reqInfo) {
+      console.log("License update requested")
+      if (licenceUri && token) {
+        reqInfo.url = licenceUri;
 
-    //     reqInfo.headers["nv-authorizations"] = token;
-    //     reqInfo.headers.Accept = "application/octet-stream";
-    //     reqInfo.headers["content-type"] = "application/octet-stream";
-    //   }
+        reqInfo.headers["nv-authorizations"] = token;
+        reqInfo.headers.Accept = "application/octet-stream";
+        reqInfo.headers["content-type"] = "application/octet-stream";
+      }
 
-    //   if (ssmClient) {
-    //     if (ssmClient.licenseRequested) { // Renewal request
-    //       console.log("SSM license renewal requested");
-    //       reqInfo.content = ssmClient.packagePayload(reqInfo.content);
-    //       reqInfo.url = ssmClient.renewalUrl();
-    //       reqInfo.headers["nv-authorizations"] = ssmClient.sessionToken;
-    //       reqInfo.headers["content-type"] = "application/json";
-    //     } else { // First licence request
-    //       console.log("SSM initial license requested");
-    //       reqInfo.headers["nv-authorizations"] = ssmClient.token();
+      if (ssmClient) {
+        if (ssmClient.licenseRequested) { // Renewal request
+          console.log("SSM license renewal requested");
+          reqInfo.content = ssmClient.packagePayload(reqInfo.content);
+          reqInfo.url = ssmClient.renewalUrl();
+          reqInfo.headers["nv-authorizations"] = ssmClient.sessionToken;
+          reqInfo.headers["content-type"] = "application/json";
+        } else { // First licence request
+          console.log("SSM initial license requested");
+          reqInfo.headers["nv-authorizations"] = ssmClient.token();
 
-    //       ssmClient.licenseRequested = true;
-    //     }
-    //   } else {
-    //     reqInfo.headers["nv-authorizations"] = token;
-    //   }
-    // };
+          ssmClient.licenseRequested = true;
+        }
+      } else {
+        reqInfo.headers["nv-authorizations"] = token;
+      }
+    };
 
     // Override licence processing
-    // if (ssmClient != null) {
-    //   host.processLicense = ssmClient.unpackageLicense;
-    // }
+    if (ssmClient != null) {
+      host.processLicense = ssmClient.unpackageLicense;
+    }
 
-    // console.log("we have protocol " + ext);
+    console.log("we have protocol " + ext);
     if (protocol !== null) {
       console.log("Starting Media Player Library");
       logger1.innerText="Starting Media Player Library "+ JSON.stringify(cast);
