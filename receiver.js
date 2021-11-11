@@ -224,7 +224,6 @@ mediaManager.onLoad = function (event) {
      {
        isLive = false;
      }
-    logger.innerText=JSON.stringify(protocol) ;
 
     // Extract custom data
     // Customise this to match the mapping from your sender app
