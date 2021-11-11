@@ -100,7 +100,7 @@ setTextOnFrame = function (name, text)
     percentage = 100 - percentage;
     document.getElementById("myBar").style.width = percentage + "%"; 
   }
- else if(eventSet.data['media']['customData']['event_end'] === 0)
+ else if(eventSet.data['media']['customData']['event_end'] === 0&&eventSet.data['media']['streamDuration'])
 
   {
     
