@@ -205,18 +205,17 @@ mediaManager.onLoad = function (event) {
     var autoplay = event.data['autoplay'] || true;
     var protocol = null;
     mediaElement.autoplay = autoplay; // Make sure autoplay get's set
-    protocol = cast.player.api.CreateHlsStreamingProtocol(host);
  
-    // if (url.lastIndexOf('.m3u8') >= 0) {
-    // // HTTP Live Streaming
-    //   protocol = cast.player.api.CreateHlsStreamingProtocol(host);
-    // } else if (url.lastIndexOf('.mpd') >= 0) {
-    // // MPEG-DASH
-    //   protocol = cast.player.api.CreateDashStreamingProtocol(host);
-    // } else if (url.indexOf('.ism/') >= 0) {
-    // // Smooth Streaming
-    //   protocol = cast.player.api.CreateSmoothStreamingProtocol(host);
-    // }
+    if (url.lastIndexOf('.m3u8') >= 0) {
+    // HTTP Live Streaming
+      protocol = cast.player.api.CreateHlsStreamingProtocol(host);
+    } else if (url.lastIndexOf('.mpd') >= 0) {
+    // MPEG-DASH
+      protocol = cast.player.api.CreateDashStreamingProtocol(host);
+    } else if (url.indexOf('.ism/') >= 0) {
+    // Smooth Streaming
+      protocol = cast.player.api.CreateSmoothStreamingProtocol(host);
+    }
     
      if (url.toUpperCase().indexOf('/LIVE/') >= 0) {
       isLive = true;
@@ -286,10 +285,14 @@ mediaManager.onLoad = function (event) {
     console.log("we have protocol " + ext);
     if (protocol !== null) {
       console.log("Starting Media Player Library");
-      logger1.innerText="Starting Media Player Library "
+      logger1.innerText="Starting Media Player Library "+JSON.stringify(cast.player.api)
 
       window.player = new cast.player.api.Player(host);
-      window.player.load(protocol, initStart);
+      setTimeout(()=>{
+        window.player.load(protocol, initStart);
+
+      },2000)
+
 
     }
     else {
