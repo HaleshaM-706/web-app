@@ -211,7 +211,9 @@ mediaManager.onLoad = function (event) {
       protocol = cast.player.api.CreateHlsStreamingProtocol(host);
     } else if (url.lastIndexOf('.mpd') >= 0) {
     // MPEG-DASH
-      protocol = cast.player.api.CreateDashStreamingProtocol(host);
+      // protocol = cast.player.api.CreateDashStreamingProtocol(host);
+      protocol = cast.player.api.CreateHlsStreamingProtocol(host);
+
     } else if (url.indexOf('.ism/') >= 0) {
     // Smooth Streaming
       protocol = cast.player.api.CreateSmoothStreamingProtocol(host);
