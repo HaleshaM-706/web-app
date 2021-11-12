@@ -189,7 +189,7 @@ mediaManager.onLoad = function (event) {
     var ext = url.substring(url.lastIndexOf('.'), url.length);
     var initStart = event.data['media']['currentTime'] || 0;
     logger.innerText="in initStart";
-
+    castDebugLogger.debug(LOG_TAG, 'Intercepting LOAD request');
     /*var studio = event.data['media']['studio'] || "";
     var streamDuration = event.data['media']['streamDuration'] || "";
     var playPosition = event.data['media']['playPosition'] || "";*/
@@ -215,6 +215,10 @@ mediaManager.onLoad = function (event) {
     } else if (url.lastIndexOf('.mpd') >= 0) {
     // MPEG-DASH
       protocol = cast.player.api.CreateDashStreamingProtocol(host);
+    castDebugLogger.debug(LOG_TAG, protocol);
+    castDebugLogger.debug(LOG_TAG, host);
+
+      
 
     } else if (url.indexOf('.ism/') >= 0) {
     // Smooth Streaming
