@@ -27,7 +27,8 @@ window.showMediaInfo = function()
 
 
 //setTimeout(function(){window.showMediaInfo()}, 5000);
-
+cast.receiver.logger.setLevelValue(cast.receiver.LoggerLevel.DEBUG);
+  cast.player.api.setLoggerLevel(cast.player.api.LoggerLevel.DEBUG);
 const LOG_TAG = 'MyReceiverApp';
 if (window.location.href.indexOf('Debug=true') != -1) {
   cast.receiver.logger.setLevelValue(cast.receiver.LoggerLevel.DEBUG);
@@ -211,7 +212,6 @@ mediaManager.onLoad = function (event) {
     } else if (url.lastIndexOf('.mpd') >= 0) {
     // MPEG-DASH
       protocol = cast.player.api.CreateDashStreamingProtocol(host);
-      logger.innerText=JSON.stringify(host)
 
     } else if (url.indexOf('.ism/') >= 0) {
     // Smooth Streaming
