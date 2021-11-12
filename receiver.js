@@ -211,7 +211,7 @@ mediaManager.onLoad = function (event) {
     } else if (url.lastIndexOf('.mpd') >= 0) {
     // MPEG-DASH
       protocol = cast.player.api.CreateDashStreamingProtocol(host);
-      logger.innerText=JSON.text(protocol)
+      logger.innerText=JSON.stringify(host)
 
     } else if (url.indexOf('.ism/') >= 0) {
     // Smooth Streaming
