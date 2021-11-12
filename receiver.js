@@ -24,7 +24,10 @@ window.showMediaInfo = function()
   document.getElementById("infoHolder").style.display = "block";
 }
 
+const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 
+// Enable debug logger and show a 'DEBUG MODE' overlay at top left corner.
+castDebugLogger.setEnabled(true);
 
 //setTimeout(function(){window.showMediaInfo()}, 5000);
 cast.receiver.logger.setLevelValue(cast.receiver.LoggerLevel.DEBUG);
