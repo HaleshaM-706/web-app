@@ -142,7 +142,7 @@ setTextOnFrame = function (name, text)
      
     });
  
-
+debugger
 
 mediaManager.onLoad = function (event) {
   eventSet = event;
