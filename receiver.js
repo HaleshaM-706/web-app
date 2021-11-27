@@ -4,14 +4,6 @@
  * (i)the terms and conditions of the agreement you accepted by clicking that you agree or
  * (ii) such other agreement entered into between you and Nagravision S.A., OpenTV, Inc. or their affiliates.
  */
-var test={
-  "name":"halesha",
-  "id":1
-}
-document.getElementById("data").innerText=JSON.stringify(test)
-var logger=document.getElementById('testing');
-var logger1=document.getElementById('testing1');
-
 
 window.hideMediaInfo = function()
 {
@@ -24,14 +16,10 @@ window.showMediaInfo = function()
   document.getElementById("infoHolder").style.display = "block";
 }
 
-const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 
-// Enable debug logger and show a 'DEBUG MODE' overlay at top left corner.
-castDebugLogger.setEnabled(true);
 
 //setTimeout(function(){window.showMediaInfo()}, 5000);
-cast.receiver.logger.setLevelValue(cast.receiver.LoggerLevel.DEBUG);
-  cast.player.api.setLoggerLevel(cast.player.api.LoggerLevel.DEBUG);
+
 const LOG_TAG = 'MyReceiverApp';
 if (window.location.href.indexOf('Debug=true') != -1) {
   cast.receiver.logger.setLevelValue(cast.receiver.LoggerLevel.DEBUG);
@@ -40,7 +28,6 @@ if (window.location.href.indexOf('Debug=true') != -1) {
 var isLive = false;
 var eventSet;
 var mediaElement = document.getElementById('vid');
-
 
 // Create the media manager. This will handle all media messages by default.
 window.mediaManager = new cast.receiver.MediaManager(mediaElement);
@@ -74,7 +61,7 @@ setTextOnFrame = function (name, text)
 //event.data['media']
 //setTextOnFrame("title",eventSet.data['media']['customData']['period'])
  var currentTime = Math.round(Date.now()) 
-   if(eventSet.data['media']['customData'] && eventSet.data['media']['customData']['period'] && isLive)
+   if(eventSet.data['media']['customData']['period'] != null && isLive)
   {
     var endTime = parseInt(eventSet.data['media']['customData']['period']['end']);
 
@@ -104,11 +91,15 @@ setTextOnFrame = function (name, text)
     percentage = 100 - percentage;
     document.getElementById("myBar").style.width = percentage + "%"; 
   }
- else if(eventSet.data['media']['customData']['event_end'] === 0&&eventSet.data['media']['streamDuration'])
+ else if(eventSet.data['media']['customData']['event_end'] === 0)
 
   {
     
-    var endTime =eventSet.data['media']['streamDuration'];
+   var endTime = parseInt(eventSet.data['media']['customData']['period']['end']);
+
+    if (endTime < 100000000000) {
+      endTime *= 1000;
+    }
     endTime = Math.floor( endTime )
     var date = new Date(0);
     date.setSeconds(endTime);
@@ -116,7 +107,22 @@ setTextOnFrame = function (name, text)
     setTextOnFrame("timeEnd", timeString)
     //setTextOnFrame("timeStart", "")
 
-    var currentTime = mediaElement.currentTime;
+    var currentTime = eventSet.data.currentTime;
+    if(currentTime<100000000000){
+      currentTime *=1000
+    }
+       var startTime = parseInt(eventSet.data['media']['customData']['period']['start']);
+   // startTime *= 1000;
+   if (startTime < 100000000000) {
+      startTime *= 1000;
+    }
+    d = new Date(startTime);
+    
+
+   
+   
+    endTime -= startTime;
+
     var percentage = ((endTime - currentTime) / (endTime)) * 100
     percentage = 100 - percentage;
     setTextOnFrame("timeStart", "")
@@ -145,12 +151,10 @@ setTextOnFrame = function (name, text)
      
     });
  
-debugger
+
 
 mediaManager.onLoad = function (event) {
   eventSet = event;
-  logger.innerText="in onLoad";
-  document.getElementById("data").innerText=JSON.stringify(event);
   //castContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
 
  // window.mediaManager.addEventListener(cast.framework.events.category.PAUSE, mediaManagerPaused);
@@ -177,10 +181,6 @@ mediaManager.onLoad = function (event) {
 
     setTimeout(function(){window.hideMediaInfo()}, 3000);
     var url = event.data['media']['contentId'];
-    if(!url){
-      url = event.data['media']['mediaUrl'];
-    }
-   
 
     // Create the Host - much of your interaction with the library uses the Host and
     // methods you provide to it.
@@ -188,38 +188,21 @@ mediaManager.onLoad = function (event) {
       {'mediaElement':mediaElement, 'url':url});
     var ext = url.substring(url.lastIndexOf('.'), url.length);
     var initStart = event.data['media']['currentTime'] || 0;
-    logger.innerText="in initStart";
-    castDebugLogger.debug(LOG_TAG, 'Intercepting LOAD request');
+
     /*var studio = event.data['media']['studio'] || "";
     var streamDuration = event.data['media']['streamDuration'] || "";
     var playPosition = event.data['media']['playPosition'] || "";*/
-  //   var source = document.createElement('source');
 
-  //   source.setAttribute('src', url);
-  //   source.setAttribute('type', 'video/mp4');
-  //   setTimeout(()=>{
-  //  mediaElement.appendChild(source);
-  //   mediaElement.autoplay=true
-  //   console.log({
-  //     src: source.getAttribute('src'),
-  //     type: source.getAttribute('type'),
-  //   });
-  //   },3000)
+
     var autoplay = event.data['autoplay'] || true;
     var protocol = null;
-    mediaElement.autoplay = autoplay; // Make sure autoplay get's set
- 
+    mediaElement.autoplay = autoplay;  // Make sure autoplay get's set
     if (url.lastIndexOf('.m3u8') >= 0) {
     // HTTP Live Streaming
       protocol = cast.player.api.CreateHlsStreamingProtocol(host);
     } else if (url.lastIndexOf('.mpd') >= 0) {
     // MPEG-DASH
       protocol = cast.player.api.CreateDashStreamingProtocol(host);
-    castDebugLogger.debug(LOG_TAG, protocol);
-    castDebugLogger.debug(LOG_TAG, host);
-
-      
-
     } else if (url.indexOf('.ism/') >= 0) {
     // Smooth Streaming
       protocol = cast.player.api.CreateSmoothStreamingProtocol(host);
@@ -232,10 +215,9 @@ mediaManager.onLoad = function (event) {
      {
        isLive = false;
      }
-
     // Extract custom data
     // Customise this to match the mapping from your sender app
-    if (event.data['media']['customData']&&event.data['media']['customData']['token']) {
+    if (event.data['media']['customData']) {
       token = event.data['media']['customData']['token'];
       licenceUri = event.data['media']['customData']['widevineLicenceUri'];
 
@@ -247,9 +229,7 @@ mediaManager.onLoad = function (event) {
 
     // Override error handing
     host.onError = function(errorCode) {
-      logger.innerText="Error errorCode "+JSON.stringify(errorCode);
-
-      console.log("Fatal Error - " + JSON.stringify(errorCode));
+      console.log("Fatal Error - " + errorCode);
       if (window.player) {
         window.player.unload();
         window.player = null;
@@ -273,6 +253,7 @@ mediaManager.onLoad = function (event) {
           reqInfo.content = ssmClient.packagePayload(reqInfo.content);
           reqInfo.url = ssmClient.renewalUrl();
           reqInfo.headers["nv-authorizations"] = ssmClient.sessionToken;
+          reqInfo.headers.Accept = "application/json";
           reqInfo.headers["content-type"] = "application/json";
         } else { // First licence request
           console.log("SSM initial license requested");
@@ -293,12 +274,8 @@ mediaManager.onLoad = function (event) {
     console.log("we have protocol " + ext);
     if (protocol !== null) {
       console.log("Starting Media Player Library");
-      logger1.innerText="Starting Media Player Library "+url
-
       window.player = new cast.player.api.Player(host);
       window.player.load(protocol, initStart);
-
-
     }
     else {
       window.defaultOnLoad(event);    // do the default process
@@ -425,7 +402,7 @@ class SsmClient {
       license = Uint8Array.from(atob(responseObj.license), c => c.charCodeAt(0));
 
       console.log("Storing renewed session token");
-      this.sessionToken = responseObj.sessionToken;
+      ssmClient.sessionToken = responseObj.sessionToken;
     } catch (e) {
       //intentionally empty
     }
