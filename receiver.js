@@ -95,19 +95,17 @@ setTextOnFrame = function (name, text)
 
   {
     
-   var endTime = parseInt(eventSet.data['media']['customData']['period']['end']);
-
+  var endTime = parseInt(eventSet.data['media']['customData']['period']['end']);
     if (endTime < 100000000000) {
       endTime *= 1000;
     }
-    endTime = Math.floor( endTime )
-    var date = new Date(0);
-    date.setSeconds(endTime);
-    var timeString = date.toISOString().substr(11, 8);
-    setTextOnFrame("timeEnd", timeString)
-    //setTextOnFrame("timeStart", "")
+    var d = new Date(endTime);
+    var showTime = d.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+    setTextOnFrame("timeEnd", showTime)
 
-    var currentTime = eventSet.data.currentTime;
+    endTime = Math.floor( endTime )
+    
+    var currentTime = parseInt(mediaElement.currentTime);
     if(currentTime<100000000000){
       currentTime *=1000
     }
@@ -117,15 +115,11 @@ setTextOnFrame = function (name, text)
       startTime *= 1000;
     }
     d = new Date(startTime);
-    
-
-   
-   
+    showTime = d.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+    setTextOnFrame("timeStart", showTime)
     endTime -= startTime;
-
     var percentage = ((endTime - currentTime) / (endTime)) * 100
     percentage = 100 - percentage;
-    setTextOnFrame("timeStart", "")
     document.getElementById("myBar").style.width = percentage + "%";
 
    //setTextOnFrame("timeEnd",Math.floor( endTime.toHHMMSS() ))
@@ -133,18 +127,31 @@ setTextOnFrame = function (name, text)
   
   else
   {
-   var endTime = mediaElement.duration;
-    endTime = Math.floor( endTime )
-    var date = new Date(0);
-    date.setSeconds(endTime);
-    var timeString = date.toISOString().substr(11, 8);
-    setTextOnFrame("timeEnd", timeString)
-    //setTextOnFrame("timeStart", "")
+   var endTime = parseInt(eventSet.data['media']['customData']['period']['end']);
+    if (endTime < 100000000000) {
+      endTime *= 1000;
+    }
+    var d = new Date(endTime);
+    var showTime = d.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+    setTextOnFrame("timeEnd", showTime)
 
-    var currentTime = mediaElement.currentTime;
+    endTime = Math.floor( endTime )
+
+    var currentTime = parseInt(mediaElement.currentTime);
+    if(currentTime<100000000000){
+      currentTime *=1000
+    }
+       var startTime = parseInt(eventSet.data['media']['customData']['period']['start']);
+   // startTime *= 1000;
+   if (startTime < 100000000000) {
+      startTime *= 1000;
+    }
+    d = new Date(startTime);
+    showTime = d.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+    setTextOnFrame("timeStart", showTime)
+    endTime -= startTime;
     var percentage = ((endTime - currentTime) / (endTime)) * 100
     percentage = 100 - percentage;
-    setTextOnFrame("timeStart", "")
     document.getElementById("myBar").style.width = percentage + "%";
   }
   
